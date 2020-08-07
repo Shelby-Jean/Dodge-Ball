@@ -85,9 +85,9 @@ const arrOfPeople = [
   },
 ]
 
-const listOfPlayers = []
-const blueTeam = []
-const redTeam = []
+const listOfPlayers = [];
+const blueTeam = [];
+const redTeam = [];
 
 class Player {
   constructor(id, name, age, skillSet, placeBorn, canThrowBall, canDodgeBall, hasPaid, isHealthy, yearsExperience){
@@ -103,11 +103,9 @@ class Player {
     this.yearsExperience = yearsExperience;
   }
   assignBlue = () => {
-    // new Teammate(this.id, this.name, this.age, this.skillSet, this.placeBorn, this.canThrowBall, this.canDodgeBall, this.hasPaid, this.isHealthy, this.yearsExperience, mascot, color);
     blueTeam.push(this);
   }
   assignRed = () => {
-    // new Teammate(this.id, this.name, this.age, this.skillSet, this.placeBorn, this.canThrowBall, this.canDodgeBall, this.hasPaid, this.isHealthy, this.yearsExperience, mascot, color);
     redTeam.push(this);
   }
   assignPlayer = () => {
@@ -115,35 +113,35 @@ class Player {
   }
 }
 
-class Teammate extends Player {
-  constructor(id, name, age, skillSet, placeBorn, canThrowBall, canDodgeBall, hasPaid, isHealthy, yearsExperience, mascot, color){ 
+class RedTeammate extends Player {
+  constructor(id, name, age, skillSet, placeBorn, canThrowBall, canDodgeBall, hasPaid, isHealthy, yearsExperience){ 
     super(id, name, age, skillSet, placeBorn, canThrowBall, canDodgeBall, hasPaid, isHealthy, yearsExperience);
-    this.mascot = mascot;
-    this.color = color;
+    this.mascot = 'Elmo';
+    this.color = 'Red';
    }
 }
 
-// class RedTeammate extends Player {
-//   constructor(id, name, age, skillSet, placeBorn, canThrowBall, canDodgeBall, hasPaid, isHealthy, yearsExperience){ 
-//     super(id, name, age, skillSet, placeBorn, canThrowBall, canDodgeBall, hasPaid, isHealthy, yearsExperience);
-//     this.mascot = "Red Robin";
-//     this.color = "red";
-//    }
-// }
+class BlueTeammate extends Player {
+  constructor(id, name, age, skillSet, placeBorn, canThrowBall, canDodgeBall, hasPaid, isHealthy, yearsExperience){ 
+    super(id, name, age, skillSet, placeBorn, canThrowBall, canDodgeBall, hasPaid, isHealthy, yearsExperience);
+    this.mascot = 'Cookie Monster';
+    this.color = 'Blue';
+   }
+}
 
 const listPeopleChoices = () => {
-  const listElement = document.getElementById('people')
+  const listElement = document.getElementById('people');
   arrOfPeople.map(person => {
-    const li = document.createElement("li")
-    const button = document.createElement("button")
-    button.innerHTML = "Make Player"
-    button.addEventListener('click', function() {
-      makePlayer(person.id)
-      listElement.removeChild(li)
+    const li = document.createElement('li');
+    const buttonPlayer = document.createElement('button');
+    buttonPlayer.innerHTML = 'Make Player';
+    buttonPlayer.addEventListener('click', function() {
+      makePlayer(person.id);
+      listElement.removeChild(li);
     })
-    li.appendChild(button)
-    li.appendChild(document.createTextNode(person.name + " - " + person.skillSet))
-    listElement.append(li)
+    li.appendChild(buttonPlayer);
+    li.appendChild(document.createTextNode(`${person.name} - ${person.skillSet}`));
+    listElement.append(li);
   })
 }
 
@@ -167,14 +165,19 @@ const makePlayer = (person) => {
     findPlayer.yearsExperience
   )
   athlete.assignPlayer();
-  console.log(listOfPlayers);
-  const li = document.createElement("li");
-  const buttonRed = document.createElement("button");
-  const buttonBlue = document.createElement("button");
-  buttonRed.innerHTML = "Assign Red Team";
-  buttonBlue.innerHTML = "Assign Blue Team";
-  buttonRed.addEventListener('click', function() { addToRed(athlete.id) });
-
+  const li = document.createElement('li');
+  const buttonRed = document.createElement('button');
+  const buttonBlue = document.createElement('button');
+  buttonRed.innerHTML = 'Assign Red Team';
+  buttonBlue.innerHTML = 'Assign Blue Team';
+  buttonRed.addEventListener('click', function() { 
+    addToRed(athlete.id) ;
+    listElement.removeChild(li);
+  })
+  buttonBlue.addEventListener('click', function() { 
+    addToBlue(athlete.id) ;
+    listElement.removeChild(li);
+  })
   li.appendChild(buttonRed);
   li.appendChild(buttonBlue);
   li.appendChild(document.createTextNode(athlete.name));
@@ -188,7 +191,7 @@ const addToRed = (id) => {
   })
   let playerIndex = listOfPlayers.indexOf(findPlayer);
   listOfPlayers.splice(playerIndex, 1);
-  let athlete = new Teammate(
+  let athlete = new RedTeammate(
     findPlayer.id,  
     findPlayer.name,
     findPlayer.age,
@@ -199,20 +202,38 @@ const addToRed = (id) => {
     findPlayer.hasPaid,
     findPlayer.isHealthy,
     findPlayer.yearsExperience,
-    "red robin",
-    "red"
+    findPlayer.mascot,
+    findPlayer.color
   )
   athlete.assignRed();
-  const li = document.createElement("li");
-  li.appendChild(document.createTextNode(athlete.name));
+  const li = document.createElement('li');
+  li.appendChild(document.createTextNode(`Player: ${athlete.name}, Team Mascot: ${athlete.mascot}, Team Color: ${athlete.color}`));
   listElement.append(li);
 }
 
-
-
-//find index,remove at that index and remove from array
-//add to new array of players, add as li
-//instantiate new player
-
-//one function to add to team and call
-//methods in red/blue classes will manipulate arrays not on dom
+const addToBlue = (id) => {
+  const listElement = document.getElementById('blue');
+  let findPlayer = listOfPlayers.find(entry => {
+    return entry.id == id;
+  })
+  let playerIndex = listOfPlayers.indexOf(findPlayer);
+  listOfPlayers.splice(playerIndex, 1);
+  let athlete = new BlueTeammate(
+    findPlayer.id,  
+    findPlayer.name,
+    findPlayer.age,
+    findPlayer.skillSet,
+    findPlayer.placeBorn,
+    findPlayer.canThrowBall,
+    findPlayer.canDodgeBall,
+    findPlayer.hasPaid,
+    findPlayer.isHealthy,
+    findPlayer.yearsExperience,
+    findPlayer.mascot,
+    findPlayer.color
+  )
+  athlete.assignBlue();
+  const li = document.createElement('li');
+  li.appendChild(document.createTextNode(`Player: ${athlete.name}, Team Mascot: ${athlete.mascot}, Team Color: ${athlete.color}`));
+  listElement.append(li);
+}
