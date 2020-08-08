@@ -7,9 +7,9 @@ const arrOfPeople = [
     placeBorn: "Omaha, Nebraska",
     canThrowBall: true,
     canDodgeBall: true,
-    hasPaid: false,
+    hasPaid: true,
     isHealthy: true,
-    yearsExperience: 2
+    yearsExperience: 1
   },
   {
     id: 3,
@@ -17,11 +17,11 @@ const arrOfPeople = [
     age: 35,
     skillSet: "fishing",
     placeBorn: "Louisville, Kentucky",
-    canThrowBall: true,
+    canThrowBall: false,
     canDodgeBall: true,
     hasPaid: false,
     isHealthy: true,
-    yearsExperience: 2
+    yearsExperience: 3
   },
   {
     id: 4,
@@ -29,10 +29,10 @@ const arrOfPeople = [
     age: 20,
     skillSet: "tic tac toe",
     placeBorn: "Pawnee, Texas",
-    canThrowBall: true,
-    canDodgeBall: true,
+    canThrowBall: false,
+    canDodgeBall: false,
     hasPaid: false,
-    isHealthy: true,
+    isHealthy: false,
     yearsExperience: 2
   },
   {
@@ -43,9 +43,9 @@ const arrOfPeople = [
     placeBorn: "New York, New York",
     canThrowBall: true,
     canDodgeBall: true,
-    hasPaid: false,
+    hasPaid: true,
     isHealthy: true,
-    yearsExperience: 2
+    yearsExperience: 4
   },
   {
     id: 6,
@@ -53,11 +53,11 @@ const arrOfPeople = [
     age: 20,
     skillSet: "boom-a-rang throwing",
     placeBorn: "Perth, Australia",
-    canThrowBall: true,
+    canThrowBall: false,
     canDodgeBall: true,
     hasPaid: false,
     isHealthy: true,
-    yearsExperience: 2
+    yearsExperience: 3
   },
   {
     id: 7,
@@ -66,9 +66,9 @@ const arrOfPeople = [
     skillSet: "acrobatics",
     placeBorn: "Los Angeles, California",
     canThrowBall: true,
-    canDodgeBall: true,
+    canDodgeBall: false,
     hasPaid: false,
-    isHealthy: true,
+    isHealthy: false,
     yearsExperience: 2
   },
   {
@@ -77,11 +77,11 @@ const arrOfPeople = [
     age: 32,
     skillSet: "jump rope",
     placeBorn: "New Orleans, Louisiana",
-    canThrowBall: true,
+    canThrowBall: false,
     canDodgeBall: true,
-    hasPaid: false,
+    hasPaid: true,
     isHealthy: true,
-    yearsExperience: 2
+    yearsExperience: 1
   },
 ]
 
@@ -140,7 +140,7 @@ const listPeopleChoices = () => {
       listElement.removeChild(li);
     })
     li.appendChild(buttonPlayer);
-    li.appendChild(document.createTextNode(`${person.name} - ${person.skillSet}`));
+    li.appendChild(document.createTextNode(`${person.name} - Years of Experience: ${person.yearsExperience}`));
     listElement.append(li);
   })
 }
@@ -180,7 +180,7 @@ const makePlayer = (person) => {
   })
   li.appendChild(buttonRed);
   li.appendChild(buttonBlue);
-  li.appendChild(document.createTextNode(athlete.name));
+  li.appendChild(document.createTextNode(`${athlete.name} - Paid: ${athlete.hasPaid}`));
   listElement.append(li);
 }
 
